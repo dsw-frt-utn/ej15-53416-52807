@@ -6,6 +6,8 @@ namespace Dsw2026Ej15.Domain.Exceptions
 {
     internal class ValidationException : Exception
     {
-       
+        public ValidationException() { }
+
+        public ValidationException(string message) : base(message) { }
     }
 }
