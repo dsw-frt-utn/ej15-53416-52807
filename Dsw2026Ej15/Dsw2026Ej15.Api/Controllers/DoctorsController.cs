@@ -10,9 +10,9 @@ namespace Dsw2026Ej15.Api.Controllers;
 
 public class DoctorsController : ControllerBase
 {
-    private readonly IPersistencia _persistencia;
+    private readonly IPersistence _persistencia;
 
-    public DoctorsController(IPersistencia persistencia)
+    public DoctorsController(IPersistence persistencia)
     {
         _persistencia = persistencia;
     }
@@ -26,7 +26,7 @@ public class DoctorsController : ControllerBase
         if (string.IsNullOrWhiteSpace(dto.LicenseNumber))
             throw new ValidationException("LicenseNumber es requerido.");
 
-        Specialty? specialty = _persistencia.GetSpecialty(dto.SpecialityId);
+        Speciality? specialty = _persistencia.GetSpeciality(dto.SpecialityId);
         if (specialty == null)
             throw new ValidationException($"La especialidad con el id '{dto.SpecialityId}' no existe.");
 
@@ -38,7 +38,7 @@ public class DoctorsController : ControllerBase
             Id = doctor.Id,
             Name = doctor.Name,
             LicenseNumber = doctor.LicenseNumber,
-            SpecialityName = doctor.Specialty.Name
+            SpecialityName = doctor.Speciality.Name
         });
     }
 
@@ -52,7 +52,7 @@ public class DoctorsController : ControllerBase
                 Id = d.Id,
                 Name = d.Name,
                 LicenseNumber = d.LicenseNumber,
-                SpecialityName = d.Specialty.Name
+                SpecialityName = d.Speciality.Name
             });
 
         return Ok(doctors);
@@ -71,7 +71,7 @@ public class DoctorsController : ControllerBase
             Id = doctor.Id,
             Name = doctor.Name,
             LicenseNumber = doctor.LicenseNumber,
-            SpecialityName = doctor.Specialty.Name
+            SpecialityName = doctor.Speciality.Name
         });
     }
 
