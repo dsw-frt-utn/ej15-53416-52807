@@ -2,6 +2,7 @@ using Dsw2026Ej15.Api.Middlewares;
 using Dsw2026Ej15.Data;
 using Dsw2026Ej15.Data.Sources;
 using Dsw2026Ej15.Domain.Interfaces;
+using Microsoft.OpenApi;
 
 namespace Dsw2026Ej15.Api
 {
@@ -17,6 +18,13 @@ namespace Dsw2026Ej15.Api
 
             builder.Services.AddHealthChecks();
 
+            // Swagger
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dsw2026Ej15 API", Version = "v1" });
+            });
+            
             var app = builder.Build();
 
             // Middleware de excepiones
@@ -28,7 +36,12 @@ namespace Dsw2026Ej15.Api
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dsw2026Ej15 API v1");
+                    c.RoutePrefix = string.Empty; // ← abre Swagger en la raíz
+                });
             }
 
             app.UseHttpsRedirection();
