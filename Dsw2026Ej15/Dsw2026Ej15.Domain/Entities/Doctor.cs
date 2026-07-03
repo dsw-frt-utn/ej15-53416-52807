@@ -6,11 +6,15 @@ namespace Dsw2026Ej15.Domain.Entities
 {
     public class Doctor : BaseEntity
     {
-        public string Name { get; init; }
-        public string LicenseNumber { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string LicenseNumber { get; init; } = string.Empty;
         public bool IsActive { get; private set; }
-        public Speciality Speciality { get; init; }
+        public Speciality Speciality { get; init; } = null!;
 
+        // ← Constructor sin parámetros para EF
+        protected Doctor() { }
+
+        // ← Constructor normal para uso en la aplicación
         public Doctor(string name, string licenseNumber, Speciality speciality)
         {
             Name = name;

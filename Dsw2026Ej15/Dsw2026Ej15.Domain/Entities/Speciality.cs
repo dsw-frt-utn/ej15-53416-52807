@@ -6,8 +6,11 @@ namespace Dsw2026Ej15.Domain.Entities
 {
     public class Speciality : BaseEntity
     {
-        public string Name { get; init; }
-        public string Description { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string Description { get; init; } = string.Empty;
+
+        // ← Constructor sin parámetros para EF
+        protected Speciality() { }
 
         public Speciality(string name, string description)
         {
